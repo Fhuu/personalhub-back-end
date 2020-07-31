@@ -3,7 +3,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const mongoose = require("mongoose");
-const dbURL = "mongodb+srv://adminuser:useradmin@fhuuka.hccpa.mongodb.net/expressfirst?retryWrites=true&w=majority";
+const dbURL = process.env.MONGODB_URI || "mongodb+srv://adminuser:useradmin@fhuuka.hccpa.mongodb.net/expressfirst?retryWrites=true&w=majority";
 mongoose.connect(dbURL, {useNewUrlParser : true, useUnifiedTopology : true, useFindAndModify : true})
     .then(() => {
         console.log("connected to database on fhuuka cluster");
