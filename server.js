@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
+const User = require("./Model/User");
 
 
 //----------------Server setup-----------------//
@@ -40,7 +41,10 @@ mongoose.connect(dbURL, {useNewUrlParser : true, useUnifiedTopology : true, useF
         console.log(error);
     });
 
-//------------------------Session--------------------------//
-
-
 //------------------------Passport-------------------------//
+const passport = require("passport");
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
