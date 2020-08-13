@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
-const User = require("./Model/User");
 
 
 //----------------Server setup-----------------//
@@ -13,13 +12,14 @@ app.get("/", (req,res) => {
     res.send("Up and running!");
 })
 
+//----------------body parser-----------------//
+const bodyparser = require("body-parser");
+app.use(bodyparser.json());
+
 //------------------Session setup------------------//
 const session = require('express-session');
 app.set('trust proxy', 1);
 app.use(session({
-    genid: function(req) {
-        return genuuid()
-    },
     secret: 'secret',
     resave: false,
     saveUninitialized : true,
@@ -32,7 +32,7 @@ app.use(session({
 //----------------------Database---------------------------//
 const mongoose = require("mongoose");
 const dbURL = process.env.MONGODB_URI || "mongodb://localhost:27017/personalhubdb";
-mongoose.connect(dbURL, {useNewUrlParser : true, useUnifiedTopology : true, useFindAndModify : true})
+mongoose.connect(dbURL, {useNewUrlParser : true, useUnifiedTopology : true, useFindAndModify : true, useCreateIndex : true})
     .then(() => {
         console.log("connected to database on fhuuka cluster");
     })
@@ -42,9 +42,14 @@ mongoose.connect(dbURL, {useNewUrlParser : true, useUnifiedTopology : true, useF
     });
 
 //------------------------Passport-------------------------//
+const User = require("./Model/User");
 const passport = require("passport");
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+//---------------------------Routes--------------------------//
+const userRoutes = require("./Routes/UserRoutes");
+app.use('/user', userRoutes);
