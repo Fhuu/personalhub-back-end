@@ -36,6 +36,12 @@ exports.authenticate = (req,res,next) => {
 }
 
 exports.checkSession = (req,res,next) => {
-    console.log(req.session.loginStatus);
-    res.json({loginStatus : req.session.loginStatus, username : req.session.username});
+    loginStatus = req.session.loginStatus;
+    console.log(loginStatus);
+    username = req.session.username;
+    console.log(username);
+    res.json({
+        "loginStatus" : loginStatus, 
+        "username" : username
+    });
 }

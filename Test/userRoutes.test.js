@@ -1,10 +1,17 @@
 const supertest = require("supertest");
 const app = require("../app");
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const user = require("../Model/User");
+let res;
 
 afterAll(done => {
     console.log("closing test app");
-    mongoose.connection.close();
+    user.deleteMany({username : "dummy"}, (err,deletedDoc) => {
+        if(err) throw err;
+    })
+    .then(() => {
+        mongoose.connection.close();
+    })
     done();
 })
 
@@ -13,17 +20,33 @@ it("should be true when thruthy", async done => {
     done();
 })
 
+it("should create a user with username katana", async done => {
+    res = await supertest(app)
+    .post("/user/create")
+    .type("application/json")
+    .send(JSON.stringify(
+        {
+            username : "dummy",
+            email : "dummy",
+            password : "dummy"
+        }
+    ))
+    expect(res.type).toBe("application/json");
+    expect(res.body.loginStatus).toBe("1");
+    done();
+})
+
 it("should return loginStatus == 1", async done => {
-    let res = await supertest(app)
+    res = await supertest(app)
     .post("/user/login")
     .type("application/json")
     .send(JSON.stringify(
         {
-            username : "katana",
-            password : "katana"
+            username : "dummy",
+            password : "dummy"
         }
     ))
     expect(res.type).toBe("application/json");
-    expect(res.body.loginStatus).toBe("0");
+    expect(res.body.loginStatus).toBe("1");
     done();
 })
