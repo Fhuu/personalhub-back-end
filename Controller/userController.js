@@ -14,23 +14,28 @@ exports.create = (req,res,next) => {
     });
     model.register(user, req.body.password, (err,document) => {
         if(err) return err;
-        res.send(document);
+        next();
     })
 }
 
 exports.authenticate = (req,res,next) => {
     passport.authenticate('local', (err, user, info) => {
         if(!user) {
+            req.session.loginStatus = false;
             res.json({
-                "loginStatus" : "0",
-                "userId" : null
+                "loginStatus" : "0"
             })
-            return;
         } else {
+            req.session.loginStatus = true;
+            req.session.username = user.username;
             res.json({
-                "loginStatus" : "1",
-                "userId" : user._id
+                "loginStatus" : "1"
             });
         }
     })(req,res,next);
+}
+
+exports.checkSession = (req,res,next) => {
+    console.log(req.session.loginStatus);
+    res.json({loginStatus : req.session.loginStatus, username : req.session.username});
 }
