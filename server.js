@@ -1,4 +1,4 @@
-const server = require("./app");
+const app = require("./app");
 const port = process.env.PORT || 3000;
 
 //----------------Server setup-----------------//
@@ -10,4 +10,4 @@ app.get("/", (req,res) => {
     res.send("Up and running!");
 })
 
-module.exports = server;
+module.exports = app;
