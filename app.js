@@ -22,7 +22,7 @@ app.use(session({
 const cors = require('cors');
 app.use(cors());
 const corsOptions = {
-    origin : 'https://fhuu.github.io/',
+    origin : 'https://fhuu.github.io/personalhub-front-end/',
     optionsSuccessStatus : 200
 }
 
