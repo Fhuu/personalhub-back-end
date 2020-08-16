@@ -13,6 +13,7 @@ app.use(session({
     resave: false,
     saveUninitialized : true,
     cookie : {
+        path : '/',
         secure : false,
         maxAge: 360000
     }
@@ -20,11 +21,8 @@ app.use(session({
 
 //---------------------Cors on expressjs---------------------------//
 //source https://enable-cors.org/server_expressjs.html
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://fhuu.github.io/"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+const cors = require("cors");
+app.use(cors());
 
 //----------------------Database---------------------------//
 const mongoose = require("mongoose");
