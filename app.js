@@ -18,6 +18,14 @@ app.use(session({
     }
 }))
 
+//---------------------Cors on expressjs---------------------------//
+//source https://enable-cors.org/server_expressjs.html
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://fhuu.github.io/"); // update to match the domain you will make the request from
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 //----------------------Database---------------------------//
 const mongoose = require("mongoose");
 const dbURL = process.env.MONGODB_URI || ((process.env.NODE_ENV === 'test') ? 'mongodb://localhost:27017/yuk' : "mongodb://localhost:27017/yuk");
