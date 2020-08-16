@@ -13,7 +13,7 @@ app.use(session({
     resave: false,
     saveUninitialized : true,
     cookie : {
-        path : '/',
+        path : 'http://fhuu.github.io/personalhub-front-end',
         secure : false,
         maxAge: 360000
     }
