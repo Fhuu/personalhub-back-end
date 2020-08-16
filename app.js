@@ -18,14 +18,6 @@ app.use(session({
     }
 }))
 
-//-------------------------CORS SETTING-------------------//
-const cors = require('cors');
-app.use(cors());
-const corsOptions = {
-    origin : 'localhost:3000',
-    optionsSuccessStatus : 200
-}
-
 //----------------------Database---------------------------//
 const mongoose = require("mongoose");
 const dbURL = process.env.MONGODB_URI || ((process.env.NODE_ENV === 'test') ? 'mongodb://localhost:27017/yuk' : "mongodb://localhost:27017/yuk");
@@ -49,6 +41,6 @@ passport.deserializeUser(User.deserializeUser());
 
 //---------------------------Routes--------------------------//
 const userRoutes = require("./Routes/UserRoutes");
-app.use('/user', cors(corsOptions), userRoutes);
+app.use('/user', userRoutes);
 
 module.exports = app;
