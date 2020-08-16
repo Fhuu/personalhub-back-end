@@ -21,15 +21,9 @@ app.use(session({
 //-------------------------CORS SETTING-------------------//
 const cors = require('cors');
 app.use(cors());
-const originWhitelist = ["https://fhuu.github.io/", "http://localhost:3001", "http://localhost:3000"]
-var checkWhitelist = (req,callback) => {
-    let corsOptions;
-    if(originWhitelist.indexOf(req.header('Origin')) !== -1) {
-        corsOptions = {origin : true}
-    } else {
-        corsOptions = {origin : false}
-    }
-    callback(null, corsOptions)
+const corsOptions = {
+    origin : 'https://fhuu.github.io/',
+    optionsSuccessStatus : 200
 }
 
 //----------------------Database---------------------------//
@@ -55,6 +49,6 @@ passport.deserializeUser(User.deserializeUser());
 
 //---------------------------Routes--------------------------//
 const userRoutes = require("./Routes/UserRoutes");
-app.use('/user', cors(checkWhitelist), userRoutes);
+app.use('/user', cors(corsOptions), userRoutes);
 
 module.exports = app;
