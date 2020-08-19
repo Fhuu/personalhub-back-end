@@ -1,23 +1,16 @@
 const express = require("express");
 const app = express();
+const mongoose = require("mongoose");
+const dbURL = process.env.MONGODB_URI || ((process.env.NODE_ENV === 'test') ? 'mongodb://localhost:27017/yuk' : "mongodb://localhost:27017/yuk");
+
 
 //----------------body parser-----------------//
 const bodyparser = require("body-parser");
 app.use(bodyparser.json());
 
 //------------------Session setup------------------//
-const session = require('express-session');
-app.set('trust proxy', 1);
-app.use(session({
-    secret: 'secret',
-    resave: false,
-    saveUninitialized : true,
-    cookie : {
-        path : 'myhubservices.herokuapp.com/',
-        secure : false,
-        maxAge: 360000
-    }
-}))
+const sessionConfig = require("./configs/session-config");
+sessionConfig(app, mongoose, dbURL);
 
 //---------------------Cors on expressjs---------------------------//
 //source https://enable-cors.org/server_expressjs.html
@@ -25,25 +18,12 @@ const cors = require("cors");
 app.use(cors());
 
 //----------------------Database---------------------------//
-const mongoose = require("mongoose");
-const dbURL = process.env.MONGODB_URI || ((process.env.NODE_ENV === 'test') ? 'mongodb://localhost:27017/yuk' : "mongodb://localhost:27017/yuk");
-mongoose.connect(dbURL, {useNewUrlParser : true, useUnifiedTopology : true, useFindAndModify : true, useCreateIndex : true})
-    .then(() => {
-        console.log("connected to database on fhuuka cluster");
-    })
-    .catch((error) => {
-        console.log("error connecting to database on fhuuka cluster");
-        console.log(error);
-    });
+const dbConfig = require("./configs/db-config");
+dbConfig(mongoose, dbURL);
 
 //------------------------Passport-------------------------//
-const User = require("./Model/User");
-const passport = require("passport");
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+const passportConfig = require("./configs/passport-config");
+passportConfig(app);
 
 //---------------------------Routes--------------------------//
 const userRoutes = require("./Routes/UserRoutes");
