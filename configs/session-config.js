@@ -28,7 +28,7 @@ const sessionConfig = (app, mongoose, dbURL) => {
         }),
         //resave false means dont save anything to database if nothing change during the session
         resave: false,
-        saveUninitialized : true,
+        saveUninitialized : false,
         cookie : {
             path : '/',
             secure : true,
