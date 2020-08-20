@@ -22,12 +22,14 @@ exports.authenticate = (req,res,next) => {
     passport.authenticate('local', (err, user, info) => {
         if(!user) {
             req.session.loginStatus = false;
+            console.log(req.session.loginStatus)
             res.json({
                 "loginStatus" : "0"
             })
         } else {
             req.session.loginStatus = true;
             req.session.username = user.username;
+            console.log(req.session.loginStatus, req.session.username)
             res.json({
                 "loginStatus" : "1"
             });
