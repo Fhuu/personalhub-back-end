@@ -8,7 +8,8 @@ const corsConfig = (app) => {
     const cors = require("cors");
     app.use(cors({
         origin : origins,
-        optionsSuccessStatus : 200
+        optionsSuccessStatus : 200,
+        credentials : true
     }));
 
 }
