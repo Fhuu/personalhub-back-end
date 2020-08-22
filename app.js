@@ -14,8 +14,8 @@ sessionConfig(app, mongoose, dbURL);
 
 //---------------------Cors on expressjs---------------------------//
 //source https://enable-cors.org/server_expressjs.html
-const cors = require("cors");
-app.use(cors());
+const corsConfig = require('./configs/cors-config');
+corsConfig(app);
 
 //----------------------Database---------------------------//
 const dbConfig = require("./configs/db-config");

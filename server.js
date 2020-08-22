@@ -4,7 +4,7 @@ const port = process.env.PORT || 3001;
 //----------------Server setup-----------------//
 app.listen(port, () => {
     console.log(port)
-    console.log("up and running!");
+    console.log("cors enabled, up and running!");
 })
 
 app.get("/", (req,res) => {
