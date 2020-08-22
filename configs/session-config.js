@@ -34,7 +34,7 @@ const sessionConfig = (app, mongoose, dbURL) => {
             path : '/',
             maxAge: 360000,
             httpOnly : true,
-            sameSite : "lax"
+            sameSite : "none"
         }
     }))
 }
