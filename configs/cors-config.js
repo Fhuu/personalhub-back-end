@@ -9,7 +9,19 @@ const corsConfig = (app) => {
     app.use(cors({
         origin : origins,
         optionsSuccessStatus : 200,
-        credentials : true
+        credentials : true,
+        allowedHeaders : [
+            "Origin",
+            "X-Requested-With",
+            "Content-Type",
+            "Authorization"
+        ],
+        methods : [
+            "GET",
+            "POST",
+            "DELETE",
+            "PUT"
+        ]
     }));
 
 }
