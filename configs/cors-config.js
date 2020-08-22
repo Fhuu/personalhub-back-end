@@ -30,6 +30,7 @@ const corsConfig = (app) => {
         res.header('Access-Control-Allow-Origin', origins);
         res.header('Access-Control-Allow-Methods', 'GET, POST');
         res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+        next();
     });
 
 }
