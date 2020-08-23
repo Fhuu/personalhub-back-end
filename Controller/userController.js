@@ -23,10 +23,17 @@ exports.authenticate = (req,res,next) => {
 }
 
 exports.checkSession = (req,res,next) => {
-    res.json({
-        "loginStatus" : req.isAuthenticated(), 
-        "username" : req.user.username
-    });    
+    if(req.user) {
+        res.json({
+            "loginStatus" : true, 
+            "username" : req.user.username
+        }); 
+    } else {
+        res.json({
+            "loginStatus" : false
+        })
+    }
+       
 }
 
 exports.isLoggedIn = (req,res,next) => {
