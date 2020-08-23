@@ -28,6 +28,6 @@ passportConfig(app);
 
 //---------------------------Routes--------------------------//
 const userRoutes = require("./Routes/UserRoutes");
-app.use('/user', userRoutes);
+app.use('/api/user', userRoutes);
 
 module.exports = app;
