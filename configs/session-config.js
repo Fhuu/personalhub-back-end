@@ -1,4 +1,4 @@
-const sessionConfig = (app, mongoose, dbURL) => {
+const sessionConfig = (app, sessionSecret, mongoose, dbURL) => {
     const origins = require("./origins-config");
     const session = require('express-session');
     //session needs session Store and memoryStore is not good for actual use because memory leaks happens
@@ -16,7 +16,7 @@ const sessionConfig = (app, mongoose, dbURL) => {
 
     app.set('trust proxy', true);
     app.use(session({
-        secret: 'secret',
+        secret: sessionSecret,
         /*
          * defines where the data from session is being stored. 
          * autoRemove is to remove sessoion once it is expired. 
