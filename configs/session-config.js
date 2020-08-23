@@ -31,11 +31,11 @@ const sessionConfig = (app, mongoose, dbURL) => {
         resave: false,
         saveUninitialized : true,
         cookie : {
-            //secure : true,
+            secure : true,
             path : '/',
             maxAge: 360000,
             httpOnly : false,
-            //sameSite : "none"
+            sameSite : "none"
         }
     }))
 }
