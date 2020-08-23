@@ -1,4 +1,5 @@
 const sessionConfig = (app, mongoose, dbURL) => {
+    const origins = require("./origins-config");
     const session = require('express-session');
     //session needs session Store and memoryStore is not good for actual use because memory leaks happens
     const mongoStore = require("connect-mongo")(session);
@@ -30,6 +31,7 @@ const sessionConfig = (app, mongoose, dbURL) => {
         resave: false,
         saveUninitialized : false,
         cookie : {
+            domain: "https://fhuu.github.io/personalhub-front-end/",
             secure : true,
             path : '/',
             maxAge: 360000,
