@@ -29,14 +29,13 @@ const sessionConfig = (app, mongoose, dbURL) => {
         }),
         //resave false means dont save anything to database if nothing change during the session
         resave: false,
-        saveUninitialized : false,
+        saveUninitialized : true,
         cookie : {
-            domain: "https://fhuu.github.io/personalhub-front-end/",
-            secure : true,
+            //secure : true,
             path : '/',
             maxAge: 360000,
             httpOnly : false,
-            sameSite : "none"
+            //sameSite : "none"
         }
     }))
 }
