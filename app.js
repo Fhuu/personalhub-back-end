@@ -3,6 +3,14 @@ const app = express();
 const mongoose = require("mongoose");
 const dbURL = process.env.MONGODB_URI || ((process.env.NODE_ENV === 'test') ? 'mongodb://localhost:27017/yuk' : "mongodb://localhost:27017/yuk");
 
+//------------------Handler for client build---------------//
+if(process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
+    app.use(express.static('../personalhub-front-end/personalhub/'));
+    app.get('*', (req,res) => {
+        res.sendFile(path.join(__dirname + '../personalhub-front-end/personalhub/build/index.html'));
+    })
+}
+
 
 //----------------body parser-----------------//
 const bodyparser = require("body-parser");
@@ -27,6 +35,6 @@ passportConfig(app);
 
 //---------------------------Routes--------------------------//
 const userRoutes = require("./Routes/UserRoutes");
-app.use('/user', userRoutes);
+app.use('/api/user', userRoutes);
 
 module.exports = app;
