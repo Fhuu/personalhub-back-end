@@ -30,7 +30,7 @@ const sessionConfig = (app, mongoose, dbURL) => {
         resave: false,
         saveUninitialized : false,
         cookie : {
-            secure : "auto",
+            secure : true,
             path : '/',
             maxAge: 360000,
             httpOnly : true,
