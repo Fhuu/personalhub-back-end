@@ -18,11 +18,7 @@ exports.create = (req,res,next) => {
     })
 }
 
-exports.authenticate = (req,res,next) => {
-    passport.authenticate('local')(req,res,next);
-}
-
-exports.checkSession = (req,res,next) => {
+exports.checkLogin = (req,res,next) => {
     if(req.user) {
         res.json({
             "loginStatus" : true, 
@@ -34,10 +30,4 @@ exports.checkSession = (req,res,next) => {
         })
     }
        
-}
-
-exports.isLoggedIn = (req,res,next) => {
-    res.json({
-        "loginStatus" : req.isAuthenticated()
-    })
 }

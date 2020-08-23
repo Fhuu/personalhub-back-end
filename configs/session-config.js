@@ -1,5 +1,4 @@
 const sessionConfig = (app, sessionSecret, mongoose, dbURL) => {
-    const origins = require("./origins-config");
     const session = require('express-session');
     //session needs session Store and memoryStore is not good for actual use because memory leaks happens
     const mongoStore = require("connect-mongo")(session);
@@ -25,15 +24,15 @@ const sessionConfig = (app, sessionSecret, mongoose, dbURL) => {
          */
         store: new mongoStore({
             mongooseConnection : mongoose.connection,
-            ttl: 20 * 60
+            ttl: 30 * 60
         }),
         //resave false means dont save anything to database if nothing change during the session
         resave: false,
         saveUninitialized : true,
         cookie : {
-            secure : true,
+            secure : (process.env.NODE_ENV === 'production'),
             path : '/',
-            maxAge: 360000,
+            maxAge: 100 * 60 * 30,
             httpOnly : false,
             sameSite : "none"
         }

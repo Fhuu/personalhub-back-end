@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../Controller/userController")
+const controller = require("../Controller/userController");
+const passport = require("passport");
 
 router.get("/test", controller.try);
-router.post("/create", controller.create, controller.authenticate)
-router.post("/login", controller.authenticate, controller.checkSession);
-router.get("/checkSession", controller.checkSession);
-router.get("/checkLogedIn", controller.isLoggedIn);
+router.post("/create", controller.create, passport.authenticate('local'))
+router.post("/login", passport.authenticate('local'), controller.checkLogin);
+router.get("/checkLogedIn", controller.checkLogin);
 
 module.exports = router;
