@@ -19,32 +19,18 @@ exports.create = (req,res,next) => {
 }
 
 exports.authenticate = (req,res,next) => {
-    passport.authenticate('local', (err, user, info) => {
-        if(!user) {
-            req.session.loginStatus = false;
-            console.log(req.session.loginStatus)
-            res.json({
-                "loginStatus" : "0"
-            })
-        } else {
-            req.session.loginStatus = true;
-            req.session.username = user.username;
-            console.log(req.session.loginStatus, req.session.username)
-            res.json({
-                "loginStatus" : "1"
-            });
-        }
-    })(req,res,next);
+    passport.authenticate('local')(req,res,next);
 }
 
 exports.checkSession = (req,res,next) => {
-    console.log(req.user);
-    loginStatus = req.session.loginStatus;
-    console.log(loginStatus);
-    username = req.session.username;
-    console.log(username);
     res.json({
-        "loginStatus" : loginStatus, 
-        "username" : username
-    });
+        "loginStatus" : req.isAuthenticated(), 
+        "username" : req.user.username
+    });    
+}
+
+exports.isLoggedIn = (req,res,next) => {
+    res.json({
+        "loginStatus" : req.isAuthenticated()
+    })
 }
