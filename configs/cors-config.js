@@ -1,5 +1,5 @@
-const corsConfig = (app, origins) => {
-    
+const corsConfig = (app) => {
+    const origins = require("./origins-config");
     const cors = require("cors");
     const corsSetting = cors({
         origin : origins,
