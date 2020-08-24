@@ -35,7 +35,6 @@ exports.checkLogin = (req,res,next) => {
 exports.logout = (req,res,next) => {
     req.logout();
     res.json({
-        "loginStatus" : false,
-        "message" : "succesfully log out"
+        "loginStatus" : false
     });
 }
