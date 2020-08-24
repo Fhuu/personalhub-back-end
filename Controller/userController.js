@@ -19,9 +19,7 @@ exports.create = (req,res,next) => {
 }
 
 exports.checkLogin = (req,res,next) => {
-    console.log("checkLogin requested");
     if(req.user) {
-        console.log(req.user);
         res.json({
             "loginStatus" : true, 
             "username" : req.user.username
@@ -32,4 +30,12 @@ exports.checkLogin = (req,res,next) => {
         })
     }
        
+}
+
+exports.logout = (req,res,next) => {
+    req.logout();
+    res.json({
+        "loginStatus" : false,
+        "message" : "succesfully log out"
+    });
 }
