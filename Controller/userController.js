@@ -19,7 +19,9 @@ exports.create = (req,res,next) => {
 }
 
 exports.checkLogin = (req,res,next) => {
+    console.log("checkLogin requested");
     if(req.user) {
+        console.log(req.user);
         res.json({
             "loginStatus" : true, 
             "username" : req.user.username

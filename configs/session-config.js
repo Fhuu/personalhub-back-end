@@ -3,7 +3,7 @@ const sessionConfig = (app, sessionSecret, mongoose, dbURL) => {
     //session needs session Store and memoryStore is not good for actual use because memory leaks happens
     const mongoStore = require("connect-mongo")(session);
 
-    const sameSiteOption = ((process.env.NODE_ENV === 'production')) ? 'none' : 'lax';
+    const sameSiteOption = ((process.env.NODE_ENV === 'production')) ? "none" : "lax";
 
     //create connection for express-session to store data into mongodb with help of mongoose
     mongoose.connect(dbURL, {useNewUrlParser : true, useUnifiedTopology : true, useFindAndModify : true, useCreateIndex : true})
@@ -35,11 +35,11 @@ const sessionConfig = (app, sessionSecret, mongoose, dbURL) => {
             secure : (process.env.NODE_ENV === 'production'),
             path : '/',
             maxAge: 100 * 60 * 30,
-            httpOnly : false,
+            httpOnly : true,
             sameSite : sameSiteOption
         }
     }))
-    console.log(sameSiteOption, (process.env.NODE_ENV === 'production'));
+    console.log("secure :", (process.env.NODE_ENV === 'production'), ", sameSite :", sameSiteOption);
 }
 
 module.exports = sessionConfig;
