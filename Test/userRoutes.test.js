@@ -22,7 +22,7 @@ it("should be true when thruthy", async done => {
 
 it("should create a user with username katana", async done => {
     res = await supertest(app)
-    .post("/user/create")
+    .post("/api/user/create")
     .type("application/json")
     .send(JSON.stringify(
         {
@@ -32,13 +32,13 @@ it("should create a user with username katana", async done => {
         }
     ))
     expect(res.type).toBe("application/json");
-    expect(res.body.loginStatus).toBe("1");
+    expect(res.body.loginStatus).toBe(true);
     done();
 })
 
 it("should return loginStatus == 1", async done => {
     res = await supertest(app)
-    .post("/user/login")
+    .post("/api/user/login")
     .type("application/json")
     .send(JSON.stringify(
         {
@@ -47,6 +47,6 @@ it("should return loginStatus == 1", async done => {
         }
     ))
     expect(res.type).toBe("application/json");
-    expect(res.body.loginStatus).toBe("1");
+    expect(res.body.loginStatus).toBe(true);
     done();
 })
