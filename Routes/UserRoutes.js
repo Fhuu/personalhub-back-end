@@ -7,6 +7,6 @@ router.get("/test", controller.try);
 router.post("/create", controller.create, passport.authenticate('local'), controller.checkLogin)
 router.post("/login", passport.authenticate('local'), controller.checkLogin);
 router.get("/status", controller.checkLogin);
-router.get("/logout", controller.logout, controller.checkLogin);
+router.get("/logout", controller.logout);
 
 module.exports = router;
